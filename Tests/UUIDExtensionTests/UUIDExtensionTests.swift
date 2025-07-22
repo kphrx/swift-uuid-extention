@@ -1,7 +1,9 @@
 import Testing
+import struct Foundation.UUID
 
 @testable import UUIDExtension
 
-@Test func example() async throws {
-  // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@Test func checkVersion() async throws {
+  let uuid = UUID()
+  #expect(uuid.version == .v4)
 }
