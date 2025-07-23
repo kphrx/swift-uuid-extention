@@ -1,7 +1,23 @@
 import Testing
+
 import struct Foundation.UUID
 
 @testable import UUIDExtension
+
+struct CustomUUID: UUIDVariantBase {
+  let rawValue: UUID
+}
+
+@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
+extension CustomUUID: UUIDVariant {}
+
+struct UUIDExtensionTests {
+  @Test func uuidVariant() async throws {
+    let uuid = UUID(uuidString: "C232AB00-9414-11EC-B3C8-9E6BDECED846")!
+    let customUUID = CustomUUID(rawValue: uuid)
+    #expect(customUUID.rawValue == uuid)
+  }
+}
 
 struct CheckVersion {
   @Test func foundationUUID() async throws {
